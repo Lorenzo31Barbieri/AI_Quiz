@@ -1,0 +1,30 @@
+<!-- quiz.html -->
+{% extends "layout.html" %}
+
+{% block title %}Quiz{% endblock %}
+
+{% block content %}
+    <p>Your Points: {{ user_points }}</p>
+
+    <!-- Centered question at the top -->
+    <h2 class="text-center mb-4">{{ question_text }}</h2>
+
+    <!-- Form for choices -->
+    <form method="POST" action="{{ url_for('submit_answer', question_id=question_id) }}" class="text-center">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {% for choice in choices %}
+                    <div class="form-check mt-3">
+                        <button class="btn btn-outline-dark fixed-width-btn" type="submit" name="choice" id="choice{{choice.id}}" value="{{choice.id}}">
+                            <span class="btn-text">{{ choice.testo }}</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </form>
+
+    <div class="mt-5">
+        {% include "ranking_table.html" %}
+    </div>
+{% endblock %}

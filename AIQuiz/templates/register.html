@@ -1,0 +1,34 @@
+<!-- register.html -->
+{% extends "layout.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="mb-4">Register</h2>
+            <form method="POST" action="{{ url_for('register') }}">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                </div>
+                {% if "danger" in get_flashed_messages(with_categories=true) %}
+                    <div class="alert alert-danger" role="alert">
+                        Password and confirm password do not match.
+                    </div>
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Register</button>
+                <a style="margin-left: 25px;" href="{{url_for('login')}}">I already have an account</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

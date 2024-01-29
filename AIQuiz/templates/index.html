@@ -1,0 +1,60 @@
+<!-- index.html -->
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    {% if user_rank %}
+        <div class="alert alert-info mb-3">
+            Your rank: {{ user_rank }}
+        </div>
+    {% endif %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="widget">
+                    <div class="left-panel panel">
+                        <div class="date">
+                            {{ current_date }}
+                        </div>
+                        <div class="city">
+                            {{ city }}
+                        </div>
+                        <div class="temp">
+                            <img src="http://openweathermap.org/img/wn/{{ weather_data.weather[0].icon }}.png" class="icon" alt="Weather Icon">
+                            {{ weather_data.main.temp }}&deg;
+                        </div>
+                    </div>
+                    <div class="next-days-forecast">
+                        <div>
+                            <div class="date">{{ weather_data.daily_forecast.list[8].dt | format_date }}</div>
+                            <div>{{ weather_data.daily_forecast.list[0].main.temp }}&deg;</div>
+                        </div>
+                        <div>
+                            <div class="date">{{ weather_data.daily_forecast.list[16].dt | format_date }}</div>
+                            <div>{{ weather_data.daily_forecast.list[8].main.temp }}&deg;</div>
+                        </div>
+                        <div>
+                            <div class="date">{{ weather_data.daily_forecast.list[24].dt | format_date }}</div>
+                            <div>{{ weather_data.daily_forecast.list[16].main.temp }}&deg;</div>
+                        </div>
+                    </div>
+                    <form class="mt-4" method="POST" action="{{ url_for('get_weather') }}">
+                        <div class="card-body">
+                            <label for="city" class="form-label">Enter City:</label>
+                            <input type="text" class="form-control" id="city" name="city" required>
+                            <button type="submit" class="btn btn-primary mt-3">Get Weather</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                    <form action="/quiz"><button class="button-30" role="button">Play Quiz</button></form>
+                    <form action="/ranking" class="mt-4"><button class="button-30 mb-4" role="button">Show Ranking</button></form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

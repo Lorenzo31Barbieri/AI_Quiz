@@ -1,0 +1,20 @@
+<!-- ranking_table.html -->
+<h2>Ranking</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Username</th>
+            <th>Points</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in ranking_data %}
+            <tr {% if user_rank and data.username== session['username'] %}class="table-primary"{% endif %}>
+                <td>{{ loop.index }}</td>
+                <td>{{ data.username }}</td>
+                <td>{{ data.punti }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
